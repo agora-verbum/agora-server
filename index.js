@@ -28,15 +28,6 @@ connection
     });
 
 
-app.post('/logar', (req,res)=>{
-    let {email, password} = req.body;
-    res.send(req.body.email);
-});
-
-app.get('/create', (req,res)=>{
-    User.create({name: "Luca", email: "luca@email.com", password: "123"});
-});
-
 
 app.use('/', UsersController);
 
