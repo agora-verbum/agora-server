@@ -25,3 +25,4 @@ As principais tecnologias utilizadas na API são:
 - [Express](https://expressjs.com/pt-br/)
 - [MySQL](https://www.mysql.com)
 - [Azure](azure.microsoft.com/)
+- [Sequelize](https://sequelize.org)
