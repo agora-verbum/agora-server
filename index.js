@@ -8,8 +8,6 @@ const User = require('./users/User.js');
 const cors = require('cors');
 const e = require('express');
 
-
-app.set('view engine', 'ejs');
 app.use(Express.static('public'));
 app.set('json spaces', 40);
 app.use(bodyParser.urlencoded({extended: false}));
