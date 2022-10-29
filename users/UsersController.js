@@ -1,4 +1,4 @@
-const express = require('express');
+﻿const express = require('express');
 const router = express.Router();
 const User = require('./User');
 const bcrypt = require('bcryptjs');
@@ -54,23 +54,6 @@ router.post('/user', (req,res)=>{
     }
 });
 
-router.delete('/user/:id', (req,res)=>{
-    if(isNaN(req.params.id)){
-        res.sendStatus(400);
-    }else{
-        let id = parseInt(req.params.id);
-        User.findOne({where:{id: id}})
-        .then(user=>{
-            if(user == undefined){
-                res.sendStatus(404);
-            }else{
-                User.destroy({where:{id: id}});
-                res.sendStatus(200);
-            }
-        })
-    }
-});
-
 router.put('/user/:id', (req,res)=>{
     if(isNaN(req.params.id)){
         res.sendStatus(400);
@@ -81,7 +64,6 @@ router.put('/user/:id', (req,res)=>{
             if(user == undefined){
                 res.sendStatus(404)
             }else{
-                res.statusCode = 200;
                 let {name, email, password} = req.body;
 
                 if(name != undefined){
@@ -97,6 +79,24 @@ router.put('/user/:id', (req,res)=>{
                     let hash = bcrypt.hashSync(password, salt);
                     user.update({password: hash},{where:{id:id}});
                 }
+                res.sendStatus(200);
+            }
+        })
+    }
+});
+
+router.delete('/user/:id', (req,res)=>{
+    if(isNaN(req.params.id)){
+        res.sendStatus(400);
+    }else{
+        let id = parseInt(req.params.id);
+        User.findOne({where:{id: id}})
+        .then(user=>{
+            if(user == undefined){
+                res.sendStatus(404);
+            }else{
+                User.destroy({where:{id: id}});
+                res.sendStatus(200);
             }
         })
     }
@@ -125,7 +125,5 @@ router.post('/login', (req,res)=>{
         res.sendStatus(401);
     }
 });
-
-
 
 module.exports = router;
