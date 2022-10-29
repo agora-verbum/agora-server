@@ -5,6 +5,8 @@ const connection = require('./database/database.js');
 const bodyParser = require('body-parser');
 const UsersController = require('./users/UsersController.js');
 const User = require('./users/User.js');
+const CategoriesController = require('./categories/CategoriesController.js');
+const Category = require('./categories/Category.js');
 const cors = require('cors');
 const e = require('express');
 
@@ -28,6 +30,7 @@ connection
 
 
 app.use('/', UsersController);
+app.use('/', CategoriesController);
 
 
 
