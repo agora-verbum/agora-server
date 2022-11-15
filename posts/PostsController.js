@@ -31,4 +31,15 @@ router.get('/posts/category/:id', async(req,res)=>{
 	}
 });
 
+router.get('/posts/user/:id', async(req,res)=>{
+	if(!isNaN(req.params.id)){
+		let id = parseInt(req.params.id);
+		let result = await database('posts').where({userId: id}).select();
+		res.status(201);
+		res.json(result);
+	}else{
+		res.sendStatus(401);
+	}
+});
+
 module.exports = router;
