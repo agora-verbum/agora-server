@@ -16,16 +16,7 @@ router.get('/user/:id', async (req,res)=>{
         res.sendStatus(400);
     }else{
         let id = parseInt(req.params.id);
-        database('users').select().
-        User.findOne({where:{id:id}})
-        .then(user=>{
-            if(user == undefined){
-                res.sendStatus(404)
-            }else{
-                res.statusCode = 200;
-                res.json(user);
-            }
-        })
+        database('users').where({id: id}).select();
     }
 });
 
