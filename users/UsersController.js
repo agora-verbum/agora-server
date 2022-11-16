@@ -16,7 +16,9 @@ router.get('/user/:id', async (req,res)=>{
         res.sendStatus(400);
     }else{
         let id = parseInt(req.params.id);
-        database('users').where({id: id}).select();
+        let user = await database('users').where({id: id}).select();
+        res.status(201);
+        res.json(user);
     }
 });
 
