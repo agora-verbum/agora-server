@@ -13,7 +13,13 @@ app.use(Express.static('public'));
 app.set('json spaces', 40);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(cors());
+app.use((req,res,next)=>{
+	res.headers('Access-Control-Allow-Origin', '*');
+	res.headers('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+	app.use(cors());
+	next();
+})
+
 
 
 
