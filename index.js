@@ -14,8 +14,9 @@ app.set('json spaces', 40);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use((req,res,next)=>{
-	res.headers('Access-Control-Allow-Origin', '*');
-	res.headers('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
+	console.log('here');
+	res.header('Access-Control-Allow-Origin', '*');
+	res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE');
 	app.use(cors());
 	next();
 })
