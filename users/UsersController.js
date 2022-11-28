@@ -4,6 +4,8 @@ const date = require('../scripts/Date.js');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 
+
+
 router.get('/user', async (req,res)=>{
     let data = await database('users').select();
     res.json(data);

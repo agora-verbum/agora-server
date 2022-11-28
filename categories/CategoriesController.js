@@ -25,27 +25,7 @@ router.post('/category', async (req,res)=>{
         res.sendStatus(400);
     }else{
         await database('categories').insert({name: name, createdAt: date.NowDateTime(), updatedAt: date.NowDateTime()});
-        res.sendStatus(200);
-    }
-});
-/*
-router.put('/category/:id', (req,res)=>{
-    if(isNaN(req.params.id)){
-        res.sendStatus(400);
-    }else{
-        let id = req.params.id;
-        Category.findOne({where:{id:id}})
-        .then(category=>{
-            if(category == undefined){
-                res.sendStatus(404);
-            }else{
-                let title = req.body.title;
-                if(title != undefined){
-                    category.update({title: title}, {where:{id:id}});
-                }
-                res.sendStatus(200);
-            }
-        })
+        res.sendStatus(201);
     }
 });
 
@@ -54,16 +34,27 @@ router.delete('/category/:id', (req,res)=>{
         res.sendStatus(400);
     }else{
         let id = req.params.id;
-        Category.findOne({where:{id:id}})
-        .then(category=>{
-            if(category != undefined){
-                Category.destroy({where:{id:id}});
-                res.sendStatus(200);
-            }else{
-                res.sendStatus(404);
-            }
-        })
+        database('categories').where({id:id}).delete();
+        res.sendStatus(200)
     }
 });
-*/
+
+router.put('/category/:id', async (req,res)=>{
+    if(isNaN(req.params.id)){
+        res.sendStatus(400);
+    }else{
+        let id = req.params.id;
+        let category = await database('categories').where({id: id}).select();
+        if(category == false){
+            res.send(404);
+        }else{
+            let {title} = req.body;
+            if(title != undefined){
+                await database('categories').where({id:id}).update({title: title});
+            }
+            res.send(200);
+        }
+    }
+});
+
 module.exports = router;
